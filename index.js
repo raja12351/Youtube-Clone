@@ -60,6 +60,12 @@ async function getChannelLogo(channelId){
   }
 }
 
+function navigateToVideoId(videoId){
+    // console.log("inside video navigator" , videoId);
+    document.cookie = `id=${videoId};path=/play-video.html`;
+    window.location.href = "http://127.0.0.1:5500/play-video.html";
+}
+
 function renderVideosOnUI(videosList){
     container.innerHTML="";
     videosList.forEach((video)=>{
@@ -82,6 +88,10 @@ function renderVideosOnUI(videosList){
           <p class="gray-text">${video.snippet.channelTitle}</p>
           <p class="gray-text">${video.statistics.viewCount} views . ${getTheTimeGap(video.snippet.publishTime)}</p>
         </div>`;
+
+        videoContainer.addEventListener("click",()=>{
+            navigateToVideoId(video.id.videoId);
+        });
 
         container.appendChild(videoContainer);
     });
